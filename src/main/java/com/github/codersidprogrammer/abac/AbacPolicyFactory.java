@@ -106,8 +106,20 @@ public class AbacPolicyFactory implements PolicyProviderFactory<AbacPolicyRepres
     }
 
     protected ScriptModel getScriptModel(Policy policy, RealmModel realm, ScriptingProvider scripting) {
+        String _code =  "" +
+                "print(\"-------\");" +
+                "print($evaluation);" +
+                "print($request.getAbsolutePath().getPath());" +
+                "print($request.getBaseUri().getPath());" +
+                "print($request.getPath());" +
+                "print($resource.getAttributes());" +
+                "print($resource.getUris());" +
+                "print($session.getContext().getUri().getAbsolutePath().getPath());" +
+                "print($session.getContext().getRequestHeaders().getRequestHeaders());" +
+                "$evaluation.grant();";
+
         String scriptName = policy.getName();
-        String scriptCode = (String)policy.getConfig().get("code");
+        String scriptCode = _code;//(String) policy.getConfig().get("code");
         String scriptDescription = policy.getDescription();
         return scripting.createScript(realm.getId(), "text/javascript", scriptName, scriptCode, scriptDescription);
     }

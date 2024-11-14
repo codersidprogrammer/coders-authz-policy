@@ -17,6 +17,11 @@ public class AbacPolicyRepresentation extends AbstractPolicyRepresentation {
     }
 
     public void setCode(String code) {
-        this.code = code;
+        String _code =  "" +
+                "print($evaluation);" +
+                "print($request.getPath());" +
+                "print($resource.getAttributes());" +
+                "$evaluation.grant();";
+        this.code = _code;
     }
 }
